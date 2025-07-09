@@ -4,8 +4,9 @@ USE loja;
 CREATE TABLE `user` (
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	name VARCHAR(50) NOT NULL,
-    email VARCHAR(50) NOT NULL
-);
+    email VARCHAR(50) NOT NULL,
+    password VARCHAR(10) NOT NULL
+);  
 
 CREATE TABLE product (
 	id INT PRIMARY KEY AUTO_INCREMENT,
@@ -22,7 +23,7 @@ CREATE TABLE cart_product (
 	CONSTRAINT fk_cart_product_product FOREIGN KEY (fk_product) REFERENCES product(id)
 );
 
-CREATE TABLE cart (
+CREATE TABLE purchase (
 	id INT PRIMARY KEY AUTO_INCREMENT,
     fk_cart_product INT,
     fk_user INT,
@@ -41,14 +42,14 @@ INSERT INTO cart_product (qtd, fk_product) VALUES (2, 1); -- Xbox
 INSERT INTO cart_product (qtd, fk_product) VALUES (3, 2); -- iPhone
 
 
-INSERT INTO cart (fk_cart_product, fk_user) VALUES (1, 1);
-INSERT INTO cart (fk_cart_product, fk_user) VALUES (2, 1);
+INSERT INTO purchase(fk_cart_product, fk_user) VALUES (1, 1);
+INSERT INTO purchase(fk_cart_product, fk_user) VALUES (2, 1);
 
 
 SELECT 
     u.name AS usuario, 
     pr.name AS produto
 FROM `user` u
-INNER JOIN cart ca ON ca.fk_user = u.id
+INNER JOIN purchase ca ON ca.fk_user = u.id
 INNER JOIN cart_product cp ON ca.fk_cart_product = cp.id
 INNER JOIN product pr ON pr.id = cp.fk_product;

@@ -1,7 +1,6 @@
 <?php
-require_once("model/ConnectionDB.php");
 
-class DataDB{
+class ProductDB{
     private $con;
 
     function __construct(){
@@ -17,22 +16,17 @@ class DataDB{
     }
 
 
-    function insertUser($name, $email){
-        $query = "INSERT INTO `user` (name, email) VALUES ('$name', '$email')";
+    function insertProduct($name, $price, $stock){
+        $query = "INSERT INTO product (name, price, stock) VALUES ('$name', '$price', '$stock')";
 
         $result = mysqli_query($this->con, $query);
 
         if(mysqli_affected_rows($this->con) > 0){
-            echo "dados adicionados";
+            echo "Produto cadastro";
+        }else{
+            echo "Erro ao adicionar produto";
         }
 
         mysqli_close($this->con);
     }
 }
-
-
-
-$datadb = new DataDB();
-
-$datadb->insertUser("Joao Carlos", "carlos123@gmail.com");
-
