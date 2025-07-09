@@ -42,6 +42,49 @@ require_once("model/CartDB.php");
 //     echo "Usuário Inexistente";
 // }
 
-$cart = new Cart();
+// $cart = new Cart();
 
-$cart->addProduct(2, 3);
+// $cart->addProduct(2, 3);
+
+?>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form action="index.php" method="post" class="login-form">
+            <div class="input-group">
+                <label for="username">Usuário</label>
+                <input type="email" id="username" name="email" placeholder="Digite seu email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+            </div>
+            <button type="submit" class="login-btn" name="submit">Entrar</button>
+        </form>
+    </div>
+
+    <?php
+
+       
+            $email = $_POST['email'];
+            $pass = $_POST['password'];
+
+            $userDB = new UserDB();
+
+            if($userDB->verificarUsuario($email, $pass)){
+                echo "<br>Usuário logado com sucesso";
+            }else{
+                echo "<br>Usuário inexistente";
+            }
+    ?>
+</body>
+</html>

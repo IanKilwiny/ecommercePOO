@@ -33,7 +33,17 @@ class UserDB{
         $result = mysqli_query($this->con, $sql);
 
 
-        return mysqli_num_rows($result) > 0;
+        return true ? mysqli_num_rows($result) > 0 : false;
+    }
+
+    function buscarIdUser($email){
+        $sql = "SELECT * FROM user WHERE email = $email";
+
+        $result = mysqli_query($this->con, $sql);
+
+        $dados = mysqli_fetch_assoc($result);
+
+        return $dados["id"];
     }
 }
 
